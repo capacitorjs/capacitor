@@ -1,0 +1,33 @@
+{
+  "name": "panel",
+  "version": "0.0.0",
+  "description": "The DevTools panel",
+  "main": "lib/",
+  "scripts": {
+    "test": "gulp test",
+    "ci-test": "gulp dist"
+  },
+  "keywords": [],
+  "author": "Christian Maher",
+  "license": "CC0-1.0",
+  "dependencies": {
+    "babel-core": "^5.8.23",
+    "capacitor-locator": "git+https://github.com/capacitorjs/locator.git#v0.1.0",
+    "devtools-helpers": "git+https://github.com/capacitorjs/devtools-helpers.git",
+    "immutable": "^3.7.4",
+    "lodash.result": "^3.1.2",
+    "react": "^0.13.3",
+    "react-immutable-proptypes": "^1.2.0",
+    "react-router": "^0.13.3",
+    "react-shallow-testutils": "^0.2.1"
+  },
+  "devDependencies": {
+    "chai": "^3.2.0",
+    "chai-immutable": "^1.3.0",
+    "eslint-plugin-react": "^3.3.1",
+    "eslintrc": "git+https://github.com/capacitorjs/eslintrc.git#v1.0.0",
+    "gulp": "^3.9.0",
+    "gulp-capacitorjs-common": "git+https://github.com/capacitorjs/gulp-capacitorjs-common.git#v0.1.2"
+  },
+  "private": true
+}

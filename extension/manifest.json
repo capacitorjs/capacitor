@@ -1,0 +1,25 @@
+{
+  "manifest_version": 2,
+
+  "name": "capacitor",
+  "description": "A generic devtools platform accepting plugins",
+  "version": "0.0.0",
+  "permissions": [
+    "tabs",
+    "http://*/*",
+    "https://*/*"
+  ],
+  "web_accessible_resources": [
+    "background/*",
+    "bootstrapper/*",
+    "content/*",
+    "injected/*",
+    "panel/*"
+  ],
+  "background": {
+    "scripts": ["background/lib/background.js"],
+    "persistent": false
+  },
+  "devtools_page": "bootstrapper/bootstrapper.html",
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+}

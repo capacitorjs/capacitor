@@ -1,0 +1,23 @@
+{
+  "name": "injected",
+  "version": "0.0.0",
+  "description": "The script that gets injected into the inspected window",
+  "main": "lib/injected.js",
+  "scripts": {
+    "test": "gulp test",
+    "ci-test": "gulp dist"
+  },
+  "keywords": [],
+  "author": "Christian Maher",
+  "homepage": "https://github.com/cmaher/injected#readme",
+  "license": "CC0-1.0",
+  "dependencies": {
+    "capacitor-devtools-helpers": "git+https://github.com/capacitorjs/devtools-helpers"
+  },
+  "devDependencies": {
+    "eslintrc": "git+https://github.com/capacitorjs/eslintrc.git#v1.0.0",
+    "gulp": "^3.9.0",
+    "gulp-capacitorjs-common": "git+https://github.com/capacitorjs/gulp-capacitorjs-common.git#v0.1.2"
+  },
+  "private": true
+}
