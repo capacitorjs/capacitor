@@ -18,10 +18,14 @@ export default class PluginManager {
       const emitter = new EventEmitter();
       plugin.start({emitter});
       this.channels[plugin.channelName] = emitter;
-      this.emitter.emit('tunnel:injected', 'tunnel:agent', {
-        event: 'plugin:ready',
-        channelName: plugin.channelName
+      emitter.on('tunnel:agent', (event, payload) => {
+        this.emitter.emit('tunnel:injected', 'tunnel:agent', {
+          event,
+          payload,
+          channelName: plugin.channelName
+        })
       });
+      emitter.emit('tunnel:agent', 'plugin:ready');
     });
   }
 

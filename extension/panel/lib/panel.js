@@ -30009,10 +30009,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var emitter = new _events.EventEmitter();
 	      plugin.start({ emitter: emitter });
 	      _this.channels[plugin.channelName] = emitter;
-	      _this.emitter.emit('tunnel:injected', 'tunnel:agent', {
-	        event: 'plugin:ready',
-	        channelName: plugin.channelName
+	      emitter.on('tunnel:agent', function (event, payload) {
+	        _this.emitter.emit('tunnel:injected', 'tunnel:agent', {
+	          event: event,
+	          payload: payload,
+	          channelName: plugin.channelName
+	        });
 	      });
+	      emitter.emit('tunnel:agent', 'plugin:ready');
 	    });
 	  }
 	
