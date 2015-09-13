@@ -1,0 +1,10 @@
+#app-container,
+.plugin-container
+{
+  width: 1000000px;
+  height: 1000000px;
+}
+
+.plugin-iframe {
+  border: 0;
+}

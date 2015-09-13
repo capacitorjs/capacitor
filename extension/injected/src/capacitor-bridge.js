@@ -17,11 +17,11 @@ export default class CapacitorBridge {
     });
   }
 
-  registerPlugin(agent, channelName, sourceFile) {
+  registerPlugin(agent, displayName, channelName, sourceFile) {
     return fetch(sourceFile).then(function (response) {
       return response.text();
     }).then((source) => {
-      this.emitter.emit('tunnel:panel', 'plugin:upload', {source});
+      this.emitter.emit('tunnel:panel', 'plugin:upload', {displayName, channelName, source});
 
       agent.emitter.on('tunnel:plugin', (event, payload) => {
         this.emitter.emit('tunnel:panel', 'tunnel:plugin', {

@@ -1,39 +1,51 @@
 'use strict';
 
-import {EventEmitter} from 'events';
+import {TunnelUtils} from 'capacitor-devtools-helpers';
 import Locator from 'capacitor-locator';
 import PluginStore from 'src/stores/plugin';
 
 export default class PluginManager {
-  constructor({emitter}) {
+  constructor({emitter, root}) {
     this.emitter = emitter;
+    this.root = root;
     this.channels = {};
-    const pluginStore = Locator.get(PluginStore);
+    this.pluginStore = Locator.get(PluginStore);
+    this.emitter.on('plugin:upload', this.initializePlugin.bind(this));
+  }
 
-    this.emitter.on('plugin:upload', ({source}) => {
-      window.eval(source);
-    });
+  initializePlugin({displayName, channelName, source}) {
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.className = 'plugin-iframe';
+    this.root.appendChild(iframe);
+    const contentWindow = iframe.contentWindow;
 
-    pluginStore.emitter.on('add', (plugin) => {
-      const emitter = new EventEmitter();
-      plugin.start({emitter});
-      this.channels[plugin.channelName] = emitter;
-      emitter.on('tunnel:agent', (event, payload) => {
-        this.emitter.emit('tunnel:injected', 'tunnel:agent', {
-          event,
-          payload,
-          channelName: plugin.channelName
-        })
+    contentWindow.eval(source);
+    this.pluginStore.registerPlugin({displayName, channelName, iframe, contentWindow});
+    this.channels[channelName] = contentWindow;
+    const tunnel = TunnelUtils.tunnelEvents(contentWindow, 'tunnel:agent', (message) => {
+      this.emitter.emit('tunnel:injected', 'tunnel:agent', {
+        event: message.event,
+        payload: message.payload,
+        channelName: channelName
       });
-      emitter.emit('tunnel:agent', 'plugin:ready');
     });
+    contentWindow.addEventListener('message', tunnel);
+    contentWindow.postMessage({
+      name: 'tunnel:plugin',
+      event: 'plugin:start'
+    }, '*');
   }
 
   forwardEvents() {
     this.emitter.on('tunnel:plugin', ({channelName, event, payload}) => {
       const channel = this.channels[channelName];
       if (channel) {
-        channel.emit(event, payload);
+        channel.postMessage({
+          name: 'tunnel:plugin',
+          event,
+          payload
+        }, '*');
       }
     });
   }

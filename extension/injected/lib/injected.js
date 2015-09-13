@@ -968,13 +968,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  }, {
 	    key: 'registerPlugin',
-	    value: function registerPlugin(agent, channelName, sourceFile) {
+	    value: function registerPlugin(agent, displayName, channelName, sourceFile) {
 	      var _this2 = this;
 	
 	      return fetch(sourceFile).then(function (response) {
 	        return response.text();
 	      }).then(function (source) {
-	        _this2.emitter.emit('tunnel:panel', 'plugin:upload', { source: source });
+	        _this2.emitter.emit('tunnel:panel', 'plugin:upload', { displayName: displayName, channelName: channelName, source: source });
 	
 	        agent.emitter.on('tunnel:plugin', function (event, payload) {
 	          _this2.emitter.emit('tunnel:panel', 'tunnel:plugin', {

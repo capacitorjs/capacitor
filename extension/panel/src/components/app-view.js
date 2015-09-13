@@ -32,12 +32,8 @@ export default class AppView extends React.Component {
   render() {
     return (
       <div className='app-view'>
-        <div className='app-plugin-list'>
-          <PluginList plugins={this.state.plugins}/>
-        </div>
-        <div className='app-plugin-container'>
-          <RouteHandler/>
-        </div>
+        <PluginList plugins={this.state.plugins}/>
+        <RouteHandler/>
       </div>
     );
   }

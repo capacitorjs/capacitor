@@ -13,7 +13,7 @@ import PluginManager from 'src/services/plugin-manager';
 export default {
   startPanel(root, portName, content, injected) {
     const emitter = new EventEmitter();
-    const pluginManager = new PluginManager({emitter});
+    const pluginManager = new PluginManager({emitter, root});
 
     window.registerPlugin = function (...args) {
       Locator.get(PluginStore).registerPlugin(...args);

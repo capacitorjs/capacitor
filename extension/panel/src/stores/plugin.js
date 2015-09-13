@@ -13,8 +13,7 @@ export default class PluginStore {
     return this._plugins;
   }
 
-  registerPlugin(channelName, plugin) {
-    plugin.channelName = channelName;
+  registerPlugin(plugin) {
     this._plugins = this._plugins.push(plugin);
     this.emitter.emit('add', plugin);
     this.emitter.emit('change');

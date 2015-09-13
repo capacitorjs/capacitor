@@ -11,7 +11,7 @@ export default class PluginList extends React.Component {
     const pluginLinks = this.props.plugins.map(function (plugin, index) {
       return (
         <li className='plugin-item' key={plugin.channelName}>
-          <Link to='plugin' params={{pluginId: index}}>{plugin.name}</Link>
+          <Link to='plugin' params={{pluginId: index}}>{plugin.displayName}</Link>
         </li>
       );
     });
