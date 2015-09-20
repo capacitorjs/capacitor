@@ -2,6 +2,13 @@
 'use strict';
 
 var common = require('gulp-capacitorjs-common');
-common.config.src.out = 'injected.js';
-common.config.src.main = 'src/injected.js';
-common.registerCommon();
+var initialConfig = {
+  src: {
+    out: 'injected.js',
+    main: 'src/injected.js'
+  }
+};
+var config = common.config(initialConfig);
+config.webpack.output.libraryTarget = 'var';
+common.registerCommon(config);
+
